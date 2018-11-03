@@ -1,3 +1,13 @@
+
+pre {
+  font-size: 0.7em;
+}
+
+.codesmall {
+  font-size: 0.7em;
+
+}
+
 h3 em {
   font-family: "Work Sans", sans-serif;
   letter-spacing: 0.02em;

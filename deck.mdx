@@ -1,10 +1,12 @@
 import { Head, Image } from 'mdx-deck'
+import { Notes } from 'mdx-deck'
 import Start from './src/Components/start'
 import Source from './src/Components/source'
 import Video from './src/Components/video'
 export theme from './src/theme'
 import Invert from './src/layouts/Invert'
 import ImgLayout from './src/layouts/image'
+
 
 import 'css-loader!./styles.css'
 
@@ -31,31 +33,300 @@ export default Start
 
 ---
 ### Meetup
-#  Web‑Worknights
----
-## Warum Web‑Worknights?
-* Möglichkeit zum Austausch für Unerfahrene bis Profis
-* IAD Lehrgang
----
-
-## Stefan Huber
-* Web-Bastler seit ~ 19 Jahr
-* Web-Entwickler seit ~ 13 Jahr
-
+# Web‑Worknights
 ---
 ## THX
 Schule für Gestaltung Zürich
 ---
+
+## Alex Jenter
+
+---
+
+## Stefan Huber
+
+<Notes>
+* Web-Bastler seit ~ 19 Jahr
+* Web-Entwickler seit ~ 13 Jahr
+</Notes>
+
+---
+## Ablauf
+
+
+* **Einführung** – Stefan Huber
+* **Praxis** – Alex Jenter
+
+
+---
 ## DANGER!
-There will be live-coding...
+Live-coding...
+---
+# ramda.js
+---
+## Einführung
+* Konzepte
+* Grundlagen
+---
+## Code-Style
+
 ---
 
-
-
-
-## Techniken
-* JavaScript
-* Grundlagen Grafik-Aufbau
+Wie alt bin ich und mein Frosch zusammen?
 
 ---
-## ramda.js
+```js
+
+let result = (2018 - 2016) + (2018 - 1981);
+//  => 39
+```
+---
+## JavaScript
+* Mehrere Programmierparadigmen
+* Eher Prozedual
+* nicht typisch Funktional
+* Auch objektorientiert
+---
+## Prozedual
+* von oben nach unten
+* in überschaubare Teile zerlegt (funktionen)
+---
+```js
+
+
+let thisYear = 2018;
+let birthFrog = 2016;
+let birthMe = 1981;
+
+let result = (thisYear - birthFrog) + (thisYear - birthMe);
+//  => 39
+
+```
+---
+
+<div style={{fontSize:"0.7em"}}>
+
+```js
+
+let thisYear = 2018;
+let birthFrog = 2016;
+let birthMe = 1981;
+
+let myAge = function() {
+  return thisYear - birthMe;
+}
+
+let frogAge = function() {
+  return thisYear - birthFrog;
+}
+
+let result = frogAge() + myAge();
+//  => 39
+```
+
+</div>
+
+
+---
+
+## Zunehmende komplexität
+
+```js
+let frogAge = function() {
+  return thisYear - birthFrog;
+}
+```
+
+---
+
+```js
+let frogAge = function(year) {
+  return (year || thisYear) - birthFrog;
+}
+```
+---
+
+<div style={{fontSize:"0.7em"}}>
+
+```js
+
+let thisYear = 2018;
+let birthFrog = 2016;
+let birthMe = 1981;
+
+let myAge = function(year) {
+  return (year || thisYear) - birthMe;
+}
+
+let frogAge = function(year) {
+  return (year || thisYear) - birthFrog;
+}
+
+let result = frogAge() + myAge();
+//  => 39
+
+let resultNexYear = frogAge(2019) + myAge(2019);
+//  => 41
+
+```
+
+</div>
+---
+
+<div style={{fontSize:"0.6em"}}>
+
+```js
+let birthFrog = 2016;
+let birthMe = 1981;
+
+let thisYear = function(year) {
+  let d = new Date();
+  return d.getFullYear();
+}
+
+let myAge = function(year) {
+  return (year || thisYear()) - birthMe;
+}
+
+let frogAge = function(year) {
+  return (year || thisYear()) - birthFrog;
+}
+
+let result = frogAge() + myAge();
+//  => 39
+
+let resultNexYear = frogAge(2019) + myAge(2019);
+//  => 41
+
+```
+
+</div>
+
+
+---
+## Funktionen = Objekte
+
+---
+## Datentypen in JS
+```js
+
+let a = 42; // number
+let b = "42"; // string
+let c = function() {
+  return 42;
+} // function = objekt
+
+```
+
+---
+## Callback
+```js
+
+let points = 0;
+
+let clicker = function(e) {
+  points = points + 1;
+  counter.innerHTML = points;
+}
+
+cookie.addEventListener("click", clicker);
+
+```
+---
+## JS Promise
+
+```js
+fetch('https://randomuser.me/api/?results=10')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(JSON.stringify(myJson));
+  });
+console.log("Test");
+
+```
+---
+## Arbeit ohne Callback
+
+```js
+let a = [1, 2, 3];
+let result = [];
+
+for (i = 0; i < a.length; i++) {
+  result.push(a[i] + 10);
+}
+
+result; // => [11, 12, 13]
+
+```
+
+---
+## Arbeit mit Callback
+
+```js
+let a = [1, 2, 3];
+let result = [];
+
+a.forEach(function(item){
+  result.push(item + 10)
+})
+
+result; // => [11, 12, 13]
+
+```
+---
+## Funktionale Programmierung
+
+* Program = verschachtelte Funktionen
+* Daten fliessen durch die Funktionen
+
+---
+## JS
+
+```js
+2 + 3;
+```
+
+## ramda
+
+```js
+R.add(2, 3);
+```
+
+---
+## ramda
+
+```js
+let plusTwo = R.add(2);
+plusTwo(3);
+```
+
+---
+## ramda
+
+```js
+let plusTwo = R.add(2);
+let multiply100 = R.multiply(100);
+
+let mul100plusTwo = R.compose(plusTwo, multiply100);
+let plusTwoMul100 = R.compose(multiply100, plusTwo);
+
+mul100plusTwo(3); // => 302
+plusTwoMul100(3); // => 500
+
+```
+---
+![](//cdn.rawgit.com/signalwerk/talk.travis-ci/1991b0ef/img/header.png)
+### [Next Meetup – 09.11.2018 – Typografie vs. Web](https://logrinto.ch/events/web-worknights-hs-2018/)
+
+
+---
+# Merci
+
+
+
+
+---
+
+## exit 0;

@@ -1,6 +1,7 @@
 // example theme.js
 // import theme from 'mdx-deck/themes'
 import { code as theme } from "mdx-deck/themes";
+import okaidia from 'react-syntax-highlighter/styles/prism/okaidia'
 
 let colors = theme.colors;
 let css = theme.css;
@@ -17,6 +18,9 @@ export default {
   // css: {
   //   position: 'relative',
   // },
+  prism: {
+    style: okaidia
+  },
   h1: {
     fontFamily: '"Work Sans", sans-serif',
     letterSpacing: '0.02em',
